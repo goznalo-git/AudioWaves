@@ -6,7 +6,7 @@ import wave
 def show_wave_n_spec(speech):
     spf = wave.open(speech,'r')
     sound_info = spf.readframes(-1)
-    sound_info = fromstring(sound_info, 'Int16')
+    sound_info = fromstring(sound_info, int)
 
     f = spf.getframerate()
    
