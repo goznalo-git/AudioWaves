@@ -1,0 +1,6 @@
+Options
+- wave2png.py, from https://github.com/mtg/freesound
+- https://github.com/yomguy/TimeSide
+- https://web.archive.org/web/20161203074728/http://jaganadhg.freeflux.net:80/blog/archive/2009/09/09/plotting-wave-form-and-spectrogram-the-pure-python-way.html
+- spectrum library
+- librose library
