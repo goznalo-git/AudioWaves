@@ -7,4 +7,14 @@ Why, you ask? Well, if you are interested in podcasting, as I am, but you still 
 
 And, of course, there are websites which already provide this service, but neither free nor as customizable as a Python script.
 
+## Broad roadmap
+1. Basics: properly understanding the problem at hand, both I/O and processing options. For that, use Jupyter.
+2. Aesthetics: generate a few different styles to begin with. Also Jupyter.
+3. Scripting: turn the Jupyter notebook into a script, with the options as user input.
+4. Improvements: add more styles, exporting options, background static image, etc.
+5. (Optional, long term) GUI: use PySimpleGUI to create a graphical application. 
+
+
+## Contributing
+
 If you want to, feel free to contribute.
