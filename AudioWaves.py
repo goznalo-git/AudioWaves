@@ -41,6 +41,26 @@ with wave.open(audio,'r') as spf:
 length = nframes/float(frate)
 onesec_info = round(len(sound_info)/length)
 
+def gif_sound(sound_info, onesec_info):
+    '''Function returning the animation of the sound wave'''
+    fig, ax = plt.subplots()
+    ylim = max(abs(sound_info)) * 1.1
+
+    mod = 10 # from 1 to length
+
+    def animate(i):
+        ax.cla()
+        ax.set_ylim(-ylim,ylim)
+        ax.set_axis_off()
+
+        current = (int(i * onesec_info/ mod),int((i + 1) * onesec_info / mod))
+        ax.plot(sound_info[current[0]:current[1]],lw=0.2)
+        
+    frames = int(length) * mod
+    ani = FuncAnimation(fig, animate, frames=frames, interval = 1000/mod, repeat=False)
+    return ani
+
+'''Now comes the actual plotting'''
 if static:
     plt.axis('off')
     if mode == 'audio':
@@ -56,9 +76,11 @@ else:
     from matplotlib.animation import FuncAnimation
     from matplotlib import rc
     
-    exit()
+    rc('animation', html='html5')
+    
     if mode == 'audio':
-        plt.plot(sound_info)
+        ani = gif_sound(sound_info, onesec_info)
+        ani.save('testgif.gif', writer='imagemagick')
     else:
         import spectrum
         freq = spectrum.speriodogram(sound_info)
