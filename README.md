@@ -11,7 +11,7 @@ And, of course, there are websites which already provide this service, but neith
 ## Broad roadmap
 
 1. Basics: properly understanding the problem at hand, both I/O and processing options. For that, use Jupyter.
-2. Aesthetics: generate a few different styles to begin with. Also Jupyter.
+2. Aesthetics: generate a few different spectrum graphs to begin with. Also Jupyter.
 3. Scripting: turn the Jupyter notebook into a script, with the options as user input.
 4. Improvements
 
