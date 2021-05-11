@@ -1,3 +1,4 @@
+import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 from matplotlib import rc
@@ -13,12 +14,13 @@ def plot_spectrum(sound_info, per, lw, P, lag):
     elif per == 'sqrt':
         freq = np.sqrt(freq)
     elif per == 'Welch':
-        freq = spectrum.WelchPeriodogram(sound_info[current[0]:current[1]]) 
+        freq = spectrum.WelchPeriodogram(sound_info) 
+        plt.close()
         freq = 10*np.log10(freq[0][0])
     elif per == 'Daniell':
-        freq = spectrum.DaniellPeriodogram(sound_info[current[0]:current[1]],P = P)[0]
+        freq = spectrum.DaniellPeriodogram(sound_info, P = P)[0]
     elif per == 'Corr':
-        freq = spectrum.CORRELOGRAMPSD(sound_info[current[0]:current[1]], lag = lag) 
+        freq = spectrum.CORRELOGRAMPSD(sound_info, lag = lag) 
     
     plt.plot(freq, lw = lw)
 
