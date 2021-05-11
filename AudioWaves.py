@@ -15,16 +15,18 @@ parser = argparse.ArgumentParser(description='Generate dynamical visualizations 
 parser.add_argument('audio') # compulsory argument, the .wav file
 parser.add_argument('-m', '--mode', choices=['audio','spectrum'], default='audio') # choose between audio and spectrum 
 parser.add_argument('-s', '--static', action='store_true', default=False) # generate gifs unless the option is provided
-parser.add_argument('-c', '--chunk', default=10) #specify the divisions of a second in which the audio will be split.
-parser.add_argument('-l', '--linewidth', default=0.3) #specify the plot's linewidth.
+parser.add_argument('-c', '--chunk', default=10, type=int) #specify the divisions of a second in which the audio will be split.
+parser.add_argument('-l', '--linewidth', default=0.3, type=float) #specify the plot's linewidth.
+parser.add_argument('-p', '--periodogram', choices=['simple','log','sqrt','Daniell,','Welch','Corr'], default='simple') # type of spectrogram
 
 args = vars(parser.parse_args())
 
 audio = args['audio']
 mode = args['mode']
 static = args['static']
-mod = int(args['chunk'])
+mod = args['chunk']
 lw = args['linewidth']
+per = args['periodogram']
 
 #print(args)
 
@@ -50,7 +52,7 @@ if static:
     if mode == 'audio':
         plt.plot(sound_info, lw = lw)
     else:
-        plot_spectrum(sound_info, lw)
+        plot_spectrum(sound_info, per, lw)
     
     plt.savefig('testplot.png')
     
@@ -58,7 +60,7 @@ else:
     if mode == 'audio':
         ani = gif_audio(sound_info, onesec_info, length, mod, lw)
     else:
-        ani = gif_spectrum(sound_info, onesec_info, length, mod, lw)
+        ani = gif_spectrum(sound_info, per, onesec_info, length, mod, lw)
         
     ani.save('testgif.gif', writer='imagemagick')
     

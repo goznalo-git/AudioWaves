@@ -3,12 +3,12 @@ from matplotlib.animation import FuncAnimation
 from matplotlib import rc
 import spectrum
 
-def plot_spectrum(sound_info, lw):
+rc('animation', html='html5')
+
+def plot_spectrum(sound_info, per, lw):
     freq = spectrum.speriodogram(sound_info)
     plt.plot(freq, lw = lw)
 
-    
-rc('animation', html='html5')
 
 def gif_audio(sound_info, onesec_info, length, mod, lw):
     '''Function returning the animation of the sound wave'''
@@ -27,7 +27,7 @@ def gif_audio(sound_info, onesec_info, length, mod, lw):
     ani = FuncAnimation(fig, animate, frames=frames, interval = 1000/mod, repeat=False)
     return ani
 
-def gif_spectrum(sound_info, onesec_info, length, mod, lw):
+def gif_spectrum(sound_info, per, onesec_info, length, mod, lw):
     '''Function returning the animation of the sound wave's spectrum'''
     fig, ax = plt.subplots()
     ylim = 1e+40
