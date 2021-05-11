@@ -12,12 +12,14 @@ import argparse
 
 parser = argparse.ArgumentParser(description='Generate dynamical visualizations of audio waves and their spectrums')
 
-parser.add_argument('audio') # compulsory argument, the .wav file
+parser.add_argument('audio', nargs=1) # compulsory argument, the .wav file
 parser.add_argument('-m', '--mode', choices=['audio','spectrum'], default='audio') # choose between audio and spectrum 
 parser.add_argument('-s', '--static', action='store_true', default=False) # generate gifs unless the option is provided
 parser.add_argument('-c', '--chunk', default=10, type=int) #specify the divisions of a second in which the audio will be split.
 parser.add_argument('-l', '--linewidth', default=0.3, type=float) #specify the plot's linewidth.
-parser.add_argument('-p', '--periodogram', choices=['simple','log','sqrt','Daniell,','Welch','Corr'], default='simple') # type of spectrogram
+parser.add_argument('-p', '--periodogram', choices=['simple','log','sqrt','Welch','Daniell','Corr'], default='simple') # type of spectrogram
+parser.add_argument('-L','--lag', default=100, type=int) # parameter for the Welch periodogram
+parser.add_argument('-P','--points', default=8, type=int) # parameter for the Daniell periodogram
 
 args = vars(parser.parse_args())
 
@@ -27,8 +29,19 @@ static = args['static']
 mod = args['chunk']
 lw = args['linewidth']
 per = args['periodogram']
+lag = args['lag']
+P = args['points']
 
-#print(args)
+if mode == 'audio' and per != 'simple':
+    print('Note: the "-p" or "--periodogram" argument is only relevant in the spectrum mode.')
+if static and mod != 10:
+    print('Note: the "-c" or "--chunk" argument is only relevant in dynamic (gif) plots.')
+elif per != 'Welch' and lag != 100: 
+    print('Note: the "-L" or "--lag" argument is only relevant in the Welch periodogram.')
+elif per != 'Daniell' and P != 8:
+    print('Note: the "-P" or "--points" argument is only relevant in the Daniell periodogram.')
+
+#TO-DO: remove defaults from add_argument, place them in function inputs and check if blank arguments don't override defaults.
 
 import wave
 import numpy as np

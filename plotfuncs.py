@@ -5,8 +5,21 @@ import spectrum
 
 rc('animation', html='html5')
 
-def plot_spectrum(sound_info, per, lw):
+def plot_spectrum(sound_info, per, lw, P, lag):
+    '''Function plotting the spectrum of the whole audio clip'''
     freq = spectrum.speriodogram(sound_info)
+    if per == 'log':
+        freq = 10*np.log10(freq)
+    elif per == 'sqrt':
+        freq = np.sqrt(freq)
+    elif per == 'Welch':
+        freq = spectrum.WelchPeriodogram(sound_info[current[0]:current[1]]) 
+        freq = 10*np.log10(freq[0][0])
+    elif per == 'Daniell':
+        freq = spectrum.DaniellPeriodogram(sound_info[current[0]:current[1]],P = P)[0]
+    elif per == 'Corr':
+        freq = spectrum.CORRELOGRAMPSD(sound_info[current[0]:current[1]], lag = lag) 
+    
     plt.plot(freq, lw = lw)
 
 
