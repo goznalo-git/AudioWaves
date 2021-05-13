@@ -45,6 +45,7 @@ with wave.open(inputfile,'r') as spf:
 length = nframes/float(frate)
 onesec_info = round(len(sound_info)/length)
 
+#sound_info = sound_info[:int(round(length/2))]
 
 '''Now comes the actual plotting'''
 if static:
@@ -60,7 +61,7 @@ else:
     if mode == 'audio':
         ani = gif_audio(sound_info, onesec_info, length, mod, lw)
     else:
-        ani = gif_spectrum(sound_info, per, onesec_info, length, mod, lw)
+        ani = gif_spectrum(sound_info, per, onesec_info, length, mod, lw, P, lag)
         
     ani.save('testgif.gif', writer='imagemagick')
     
