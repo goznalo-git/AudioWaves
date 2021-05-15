@@ -12,21 +12,27 @@ from input_args import initiation
 
 args = initiation()
 
+#print(args)
+
 inputfile = args['file']
 mode = args['mode']
 static = args['static']
 mod = args['chunk']
 lw = args['linewidth']
-per = args['periodogram']
-lag = args['lag']
-P = args['points']
+if mode == 'spectrum':
+    per = args['periodogram']
+    lag = args['lag']
+    P = args['points']
 
 if static and mod != 10:
     print('Note: the "-c" or "--chunk" argument is only relevant in dynamic (gif) plots.')
-elif per != 'Welch' and lag != 100: 
-    print('Note: the "-L" or "--lag" argument is only relevant in the Welch periodogram.')
-elif per != 'Daniell' and P != 8:
-    print('Note: the "-P" or "--points" argument is only relevant in the Daniell periodogram.')
+if mode == 'spectrum':
+    if per != 'Welch' and lag != 100: 
+        print('Note: the "-L" or "--lag" argument is only relevant in the Welch periodogram.')
+    if per != 'Daniell' and P != 8:
+        print('Note: the "-P" or "--points" argument is only relevant in the Daniell periodogram.')
+
+    
 
 #TO-DO: remove defaults from add_argument, place them in function inputs and check if blank arguments don't override defaults.
 

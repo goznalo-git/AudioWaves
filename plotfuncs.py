@@ -5,6 +5,7 @@ from matplotlib import rc
 import spectrum
 
 rc('animation', html='html5')
+plt.style.use('seaborn')
 
 def compute_freq(freq, per, sound_info, P, lag):
     
@@ -26,9 +27,7 @@ def compute_freq(freq, per, sound_info, P, lag):
 def plot_spectrum(sound_info, per, lw, P, lag):
     '''Function plotting the spectrum of the whole audio clip'''
     freq = spectrum.speriodogram(sound_info)
-    
     freq = compute_freq(freq, per, sound_info, P, lag)
-    
     plt.plot(freq, lw = lw)
 
 
@@ -60,11 +59,8 @@ def gif_spectrum(sound_info, per, onesec_info, length, mod, lw, P, lag):
         ax.set_axis_off()
 
         current = (int(i * onesec_info/ mod),int((i + 1) * onesec_info / mod))
-        
         freq = spectrum.speriodogram(sound_info[current[0]:current[1]])
-        
         freq = compute_freq(freq, per, sound_info, P, lag)
-        
         ax.plot(freq, lw = lw)
     
     frames = int(length) * mod
